@@ -66,8 +66,10 @@ Object.defineProperties(cc._PointConst.prototype, {
         get: function () {
             return this._x;
         },
-        set: function () {
-            console.warn("Warning of _PointConst: Modification to const or private property is forbidden");
+        set: function ( val ) {
+            //LUMOS CHANGES - do not warn, allow it like 2d-X does
+            this._x = val;
+            //console.warn("Warning of _PointConst: Modification to const or private property is forbidden");
         },
         enumerable: true
     },
@@ -76,8 +78,10 @@ Object.defineProperties(cc._PointConst.prototype, {
         get: function () {
             return this._y;
         },
-        set: function () {
-            console.warn("Warning of _PointConst: Modification to const or private property is forbidden");
+        set: function ( val ) {
+            //LUMOS CHANGES - do not warn, allow it like 2d-X does
+            this._y = val;
+            //console.warn("Warning of _PointConst: Modification to const or private property is forbidden");
         },
         enumerable: true
     }
@@ -184,8 +188,10 @@ Object.defineProperties(cc._SizeConst.prototype, {
         get: function () {
             return this._width;
         },
-        set: function () {
-            console.warn("Warning of _SizeConst: Modification to const or private property is forbidden");
+        set: function ( val ) {
+            //LUMOS CHANGES - do not warn, allow it like 2d-X does
+            this._width = val;
+            //console.warn("Warning of _SizeConst: Modification to const or private property is forbidden");
         },
         enumerable: true
     },
@@ -194,8 +200,10 @@ Object.defineProperties(cc._SizeConst.prototype, {
         get: function () {
             return this._height;
         },
-        set: function () {
-            console.warn("Warning of _SizeConst: Modification to const or private property is forbidden");
+        set: function ( val ) {
+            //LUMOS CHANGES - do not warn, allow it like 2d-X does
+            this._height = val;
+            //console.warn("Warning of _SizeConst: Modification to const or private property is forbidden");
         },
         enumerable: true
     }
@@ -334,20 +342,39 @@ cc.RectMake = function (x, y, width, height) {
 
 // backward compatible
 cc.rect = function (x, y, w, h) {
-    var argLen =arguments.length;
+    //NEVERMIND! Just too many damn cans of worms.
+	//LUMOS CHANGES - don't use new cc.Rect(), since it doesn't allow you to mod values
+    //unfortunately this is pretty annoying, since there's 5000 different ways people reference this shit
+    
+    //var rect = null;
+    
+    var argLen = arguments.length;
     if(argLen === 0)
         return new cc.Rect(0,0,0,0);
+		//rect = { x: 0, y: 0, width: 0, height: 0 };
 
     if(argLen === 1)
         return new cc.Rect(x.x, x.y, x.width, x.height);
+		//rect = { x: x.x, y: x.y, width: x.width, height: x.height };
 
     if(argLen === 2)
         return new cc.Rect(x.x, x.y, y.width, y.height);
+		//rect = { x: x.x, y: x.y, width: y.width, height: y.height };
 
     if(argLen === 4)
         return new cc.Rect(x,y,w,h);
+		//rect = { x: x, y: y, width: w, height: h };
 
-    throw "unknown argument type";
+    //if ( !rect )
+    //{
+        throw "unknown argument type";
+    //}
+    
+    //sheesh
+    // rect.origin = { x: rect.x, y: rect.y };
+    // rect.size = { width: rect.width, height: rect.height };
+    // rect._origin = rect.origin;
+    // rect._size = rect.size;
 };
 
 // JSB compatbility: in JSB, cc._rect reuses objects instead of creating new ones
