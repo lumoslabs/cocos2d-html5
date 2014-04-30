@@ -882,6 +882,7 @@ cc.ContainerStrategy = cc.Class.extend({
 
     },
 
+    //LUMOS EDIT - stupid cocos automatically fills the whole screen! lame! change it so that's a param, at least...
     _setupContainer: function (view, w, h) {
         var frame = view._frame;
         if (cc.Browser.isMobile && frame == document.documentElement) {
@@ -889,17 +890,21 @@ cc.ContainerStrategy = cc.Class.extend({
             cc.Screen.getInstance().autoFullScreen(frame);
         }
 
-        var locCanvasElement = cc.canvas, locContainer = cc.container;
-        // Setup container
-        locContainer.style.width = locCanvasElement.style.width = w + "px";
-        locContainer.style.height = locCanvasElement.style.height = h + "px";
-        // Setup pixel ratio for retina display
-        var devicePixelRatio = view._devicePixelRatio = 1;
-        if (this._adjustRetina)
-            devicePixelRatio = view._devicePixelRatio = window.devicePixelRatio || 1;
-        // Setup canvas
-        locCanvasElement.width = w * devicePixelRatio;
-        locCanvasElement.height = h * devicePixelRatio;
+        if ( window.fullscreen )
+        {
+            var locCanvasElement = cc.canvas, locContainer = cc.container;
+            // Setup container
+            locContainer.style.width = locCanvasElement.style.width = w + "px";
+            locContainer.style.height = locCanvasElement.style.height = h + "px";
+            // Setup pixel ratio for retina display
+            var devicePixelRatio = view._devicePixelRatio = 1;
+            if (this._adjustRetina)
+                devicePixelRatio = view._devicePixelRatio = window.devicePixelRatio || 1;
+            // Setup canvas
+            locCanvasElement.width = w * devicePixelRatio;
+            locCanvasElement.height = h * devicePixelRatio;
+        }
+        
 
         var body = document.body, style;
         if (body && (style = body.style)) {
