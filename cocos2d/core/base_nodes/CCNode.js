@@ -553,7 +553,7 @@ cc.Node = cc.Class.extend(/** @lends cc.Node# */{
      * @return {cc.Point} The position (x,y) of the node in OpenGL coordinates
      */
     getPosition:function () {
-        return this._position;
+        return cc.p( this._position.x, this._position.y ); //LUMOS - this more closely emulates cocos2d-x
     },
 
     /**
@@ -692,7 +692,7 @@ cc.Node = cc.Class.extend(/** @lends cc.Node# */{
      * @return {cc.Size} The untransformed size of the node.
      */
     getContentSize:function () {
-        return this._contentSize;
+        return cc.size( this._contentSize.width, this._contentSize.height ); //LUMOS - this more closely emulates cocos2d-x
     },
 
     /**
