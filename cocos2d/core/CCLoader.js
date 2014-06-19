@@ -488,9 +488,12 @@ cc.LoaderScene = cc.Scene.extend(/** @lends cc.LoaderScene# */{
         var percent = cc.Loader.getInstance().getPercentage();
         var tmpStr = "Loading... " + percent + "%";
         this._label.setString(tmpStr);
+        lumosity.trigger('game:loadProgress', [percent/100.0]);
 
-        if (percent >= 100)
+        if (percent >= 100) {
             this.unschedule(this._updatePercent);
+            lumosity.trigger('game:loadComplete');
+        }
     }
 });
 

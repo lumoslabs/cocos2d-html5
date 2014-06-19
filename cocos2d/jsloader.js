@@ -296,13 +296,13 @@
         var canvasNode = document.getElementById(c.tag);
         canvasNode.style.backgroundColor = "black";
         canvasNode.parentNode.appendChild(loadJsImg);
-        
+
         var canvasStyle = getComputedStyle?getComputedStyle(canvasNode):canvasNode.currentStyle;
         loadJsImg.style.left = canvasNode.offsetLeft + (parseFloat(canvasStyle.width) - loadJsImg.width)/2 + "px";
         loadJsImg.style.top = canvasNode.offsetTop + (parseFloat(canvasStyle.height) - loadJsImg.height)/2 + "px";
         loadJsImg.style.position = "absolute";
     }
-    
+
     var updateLoading = function(p){
         if(p>=1) {
             loadJsImg.parentNode.removeChild(loadJsImg);
@@ -310,8 +310,12 @@
     };
 
     var loaded = 0;
-    var que = engine.concat(c.appFiles);
-    que.push('main.js');
+    var appFiles = c.appFiles;
+    appFiles.forEach(function (e, i) {
+        appFiles[i] = c.resourcesPath + e;
+    });
+    var que = engine.concat(appFiles);
+    que.push(c.resourcesPath + 'main.js');
 
 
     var loadHandlerIE = function (loaded){
