@@ -41,7 +41,7 @@
             'src/resource.js',
             'src/myApp.js'//add your own files in order here
         ],
-        resourcesPath: ''
+        sourcePath: ''
     };
 
     if(!d.createElement('canvas').getContext){
@@ -64,9 +64,9 @@
 
         var canvas = document.getElementById(c.tag);
         if(canvas) {
-          c.resourcesPath = canvas.getAttribute('data-resourcesPath');
-          if(c.resourcesPath) {
-              c.engineDir = c.resourcesPath + 'cocos2d/';
+          c.sourcePath = canvas.getAttribute('data-sourcePath');
+          if(c.sourcePath) {
+              c.engineDir = c.sourcePath + 'cocos2d/';
           }
         }
 

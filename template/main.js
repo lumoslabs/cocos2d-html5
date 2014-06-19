@@ -33,8 +33,8 @@ var cocos2dApp = cc.Application.extend({
         cc.initDebugSetting();
         cc.setup(this.config['tag']);
         cc.AppController.shareAppController().didFinishLaunchingWithOptions();
-        cc.FileUtils.getInstance().setResourceRootPath(document['ccConfig'].resourcesPath);
-        cc.AudioEngine.getInstance().setResPath(document['ccConfig'].resourcesPath);
+        cc.FileUtils.getInstance().setResourceRootPath(document['ccConfig'].sourcePath);
+        cc.AudioEngine.getInstance().setResPath(document['ccConfig'].sourcePath);
     },
     applicationDidFinishLaunching:function () {
         // initialize director

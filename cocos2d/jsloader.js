@@ -312,10 +312,10 @@
     var loaded = 0;
     var appFiles = c.appFiles;
     appFiles.forEach(function (e, i) {
-        appFiles[i] = c.resourcesPath + e;
+        appFiles[i] = c.sourcePath + e;
     });
     var que = engine.concat(appFiles);
-    que.push(c.resourcesPath + 'main.js');
+    que.push(c.sourcePath + 'main.js');
 
 
     var loadHandlerIE = function (loaded){
