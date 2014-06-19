@@ -489,8 +489,14 @@ cc.LoaderScene = cc.Scene.extend(/** @lends cc.LoaderScene# */{
         var tmpStr = "Loading... " + percent + "%";
         this._label.setString(tmpStr);
 
+        // if (percent >= 100)
+        //     this.unschedule(this._updatePercent);
+        //LUMOS - tell the browser that we finished loading so it can update the canvas
         if (percent >= 100)
+        {
             this.unschedule(this._updatePercent);
+            lumosity.trigger( "game.loadComplete" );
+        }
     }
 });
 
