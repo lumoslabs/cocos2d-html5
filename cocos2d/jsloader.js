@@ -310,17 +310,23 @@
     };
 
     var loaded = 0;
-    // var que = engine.concat(c.appFiles);
-    // que.push('main.js');
     
     //LUMOS - add in support for a sourcePath
-    var appFiles = c.appFiles;
-    appFiles.forEach(function (e, i) {
-    appFiles[i] = c.sourcePath + e;
-    });
-    var que = engine.concat(appFiles);
-    que.push(c.sourcePath + 'main.js');
-
+    if ( c.sourcePath )
+    {
+        var appFiles = c.appFiles;
+        appFiles.forEach(function (e, i)
+        {
+            appFiles[i] = c.sourcePath + e;
+        });
+        var que = engine.concat(appFiles);
+        que.push(c.sourcePath + 'main.js');
+    }
+    else
+    {
+        var que = engine.concat(c.appFiles);
+        que.push('main.js');
+    }
 
     var loadHandlerIE = function (loaded){
         loadNext();
