@@ -498,7 +498,7 @@ cc.LoaderScene = cc.Scene.extend(/** @lends cc.LoaderScene# */{
         if (percent >= 100)
         {
             this.unschedule(this._updatePercent);
-            lumosity.trigger( "game.loadComplete" );
+            lumosity.trigger( "game:loadComplete" );
         }
     }
 });
