@@ -49,6 +49,7 @@ cc.Loader = cc.Class.extend(/** @lends cc.Loader# */{
     _totalNumber: 0,
     _loadedNumber: 0,
     _resouces: null,
+    _resourceMap: null, //LUMOS - this is so that we can see if a file exists
     _animationInterval: 1 / 60,
     _interval: null,
     _isAsync: false,
@@ -58,6 +59,7 @@ cc.Loader = cc.Class.extend(/** @lends cc.Loader# */{
      */
     ctor: function () {
         this._resouces = [];
+        this._resourceMap = {};
     },
 
     /**
@@ -178,6 +180,16 @@ cc.Loader = cc.Class.extend(/** @lends cc.Loader# */{
             }
         }
     },
+    
+    resourceExists: function( resourcePath )
+    {
+        if ( !this._resourceMap )
+        {
+            return false;
+        }
+        
+        return !!this._resourceMap[ resourcePath ];
+    },
 
     _preload: function () {
         this._updatePercent();
@@ -227,6 +239,8 @@ cc.Loader = cc.Class.extend(/** @lends cc.Loader# */{
                 throw "cocos2d:unknown filename extension: " + type;
                 break;
         }
+        
+        this._resourceMap[ resInfo.src ] = true;
     },
 
     _schedulePreload: function () {
