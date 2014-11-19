@@ -1878,9 +1878,9 @@ cc.Sprite = cc.NodeRGBA.extend(/** @lends cc.Sprite# */{
 
         // it's possible to have an untextured sprite
         if (!this._texture || !this._texture.hasPremultipliedAlpha()) {
-            this._blendFunc.src = gl.SRC_ALPHA;
+            this._blendFunc.src = gl.ONE;
             this._blendFunc.dst = gl.ONE_MINUS_SRC_ALPHA;
-            this.setOpacityModifyRGB(false);
+            this.setOpacityModifyRGB(true);
         } else {
             this._blendFunc.src = cc.BLEND_SRC;
             this._blendFunc.dst = cc.BLEND_DST;
