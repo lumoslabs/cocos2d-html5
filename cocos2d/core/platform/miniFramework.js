@@ -57,7 +57,7 @@ cc.Browser = {};
  * Browsers that Cocos2d-HTML5 support well in WebGL render mode
  * @type {Array}
  */
-cc.Browser.webglWhiteList = ["baidubrowser", "opera", "firefox", "chrome", "safari"];
+cc.Browser.webglWhiteList = ["baidubrowser", "opera", "firefox", "chrome", "safari", "ie", "mozilla"];
 
 /**
  * Browsers that multiple audio support well
@@ -72,7 +72,7 @@ cc.Browser.multipleAudioWhiteList = ["baidubrowser", "opera", "firefox", "chrome
     cc.Browser.isMobile = (cc.Browser.ua.indexOf('mobile') != -1 || cc.Browser.ua.indexOf('android') != -1);
     cc.Browser.type = (function () {
         var browserTypes = cc.Browser.ua.match(/micromessenger|qqbrowser|mqqbrowser|ucbrowser|360browser|baiduboxapp|baidubrowser|maxthon|ie|opera|miuibrowser|firefox/)
-            || cc.Browser.ua.match(/chrome|safari/);
+            || cc.Browser.ua.match(/chrome|safari|mozilla/);
 
         if (browserTypes && browserTypes.length > 0) {
             var el = browserTypes[0];
@@ -102,7 +102,7 @@ cc.Browser.multipleAudioWhiteList = ["baidubrowser", "opera", "firefox", "chrome
         cc.Browser.supportWebGL = !(window.WebGLRenderingContext == null);
         var tempCanvas = document.createElement("Canvas");
         var tempContext = cc.create3DContext(tempCanvas, {'stencil': true, 'preserveDrawingBuffer': true });
-        cc.Browser.supportWebGL = !(tempContext == null)
+        cc.Browser.supportWebGL = !(tempContext == null);
     }
     if (cc._userRenderMode === 2 && !cc.Browser.supportWebGL) {
         // WebGL render only, but browser doesn't support WebGL.
