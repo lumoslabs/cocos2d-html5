@@ -691,6 +691,11 @@ cc.LabelTTF = cc.Sprite.extend(/** @lends cc.LabelTTF# */{
             else if (locVAlignment === cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
                 yOffset = locFontHeight / 2 + (locContentSizeHeight - locFontHeight * locStrLen) / 2;
 
+            if ( lumosity.device.id === "html5" && navigator.userAgent.indexOf("Firefox") >= 0 )
+            {
+                yOffset += 2;
+            }
+
             for (var i = 0; i < locStrLen; i++) {
                 var line = this._strings[i];
                 var tmpOffsetY = -locContentSizeHeight + (locFontHeight * i) + yOffset;
