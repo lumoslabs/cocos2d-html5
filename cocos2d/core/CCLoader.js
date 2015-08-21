@@ -191,7 +191,7 @@ cc.Loader = cc.Class.extend(/** @lends cc.Loader# */{
         return !!this._resourceMap[ resourcePath ];
     },
 
-    _preload: function () {
+    _preloadUpdate: function () {
         this._updatePercent();
         if (this._isAsync) {
             var frameRate = cc.Director.getInstance()._frameRate;
@@ -200,20 +200,21 @@ cc.Loader = cc.Class.extend(/** @lends cc.Loader# */{
                 return;
             }
         }
-
-        if (this._curNumber < this._totalNumber) {
-            this._loadOneResource();
-            this._curNumber++;
+    },
+    
+    _preload: function() {
+        while (this._curNumber < this._totalNumber) {
+            setTimeout(this._loadOneResource.bind(this, this._curNumber++), 0);
         }
     },
 
-    _loadOneResource: function () {
+    _loadOneResource: function (curNumber) {
         var sharedTextureCache = cc.TextureCache.getInstance();
         var sharedEngine = cc.AudioEngine ? cc.AudioEngine.getInstance() : null;
         var sharedParser = cc.SAXParser.getInstance();
         var sharedFileUtils = cc.FileUtils.getInstance();
 
-        var resInfo = this._resouces[this._curNumber];
+        var resInfo = this._resouces[curNumber];
         var type = this._getResType(resInfo);
         switch (type) {
             case "IMAGE":
@@ -245,8 +246,9 @@ cc.Loader = cc.Class.extend(/** @lends cc.Loader# */{
 
     _schedulePreload: function () {
         var _self = this;
+        setTimeout(this._preload.bind(this), 0);
         this._interval = setInterval(function () {
-            _self._preload();
+            _self._preloadUpdate();
         }, this._animationInterval * 1000);
     },
 
@@ -442,7 +444,7 @@ cc.LoaderScene = cc.Scene.extend(/** @lends cc.LoaderScene# */{
 
     onEnter: function () {
         cc.Node.prototype.onEnter.call(this);
-        this.schedule(this._startLoading, 0.3);
+        this.schedule(this._startLoading, 0);
     },
 
     onExit: function () {
