@@ -33,7 +33,7 @@ cc.RESOURCE_TYPE = {
     "IMAGE": ["png", "jpg", "bmp","jpeg","gif"],
     "SOUND": ["mp3", "ogg", "wav", "mp4", "m4a", "aif", "aiff"],
     "XML": ["plist", "xml", "fnt", "tmx", "tsx"],
-    "BINARY": ["ccbi"],
+    "BINARY": ["ccbi","ccb"],
     "FONT": "FONT",
     "TEXT":["txt", "vsh", "fsh","json", "csv", "tsv", "ExportJson", "list"],
     "UNKNOW": []
